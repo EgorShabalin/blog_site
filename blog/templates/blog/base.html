@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World Blog</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/base.css' %}">
+
+</head>
+
+<body>
+
+    <div id="header">
+        <h1><strong>Hello World Blog</strong></h1>
+    </div>
+
+    <div id="main_menu">
+        <a href="index.html">Latest</a>
+        <a href="best.html">Best</a>
+        <a href="people.html">People</a>
+    </div>
+
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+        <i>Created by <strong><a href="mailto:egor.shabalin.wd@gmail.com">Egor Shabalin</a></strong></i>
+    </footer>
+
+</body>
+
+</html>

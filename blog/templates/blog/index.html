@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div class="article_list">
+
+    {% for post in posts %}
+
+    <a href="#">
+        <div class="content">
+            <h3>{{ post.title }}</h3>
+            <img class="content_image" src={{ post.img.url }} alt="img">
+            <p>{{ post.text|truncatewords:100 }}</p>
+            <p>By {{ post.author }} | {{ post.created_at|date:"H:m, F j, Y" }}</p>
+            <p><a href="#">Comments</a></p>
+            <p>Rating</p>
+        </div>
+    </a>
+
+    {% empty %}
+
+    <div class="content">
+
+        <h4>No posts available yet.</h4>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
