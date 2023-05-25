@@ -6,4 +6,5 @@ from .models import *
 admin.site.register(Post)
 admin.site.register(Category)
 admin.site.register(Comment)
-# admin.site.register(Rating)
+admin.site.register(Follow)
+admin.site.register(Rating)

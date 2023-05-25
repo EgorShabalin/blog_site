@@ -20,6 +20,7 @@ class Post(models.Model):
     text = models.TextField()
     img = models.ImageField(default=None, upload_to="post_imgs", blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    rating = models.IntegerField(default=0, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -54,6 +55,7 @@ class Comment(models.Model):
         return self.text[0:20]
 
     class Meta:
+        ordering = ("-created_at",)
         verbose_name_plural = "Comments"
 
 
@@ -61,3 +63,11 @@ class Follow(models.Model):
     follows_user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ("-created_at",)
+
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_rating")
