@@ -15,6 +15,12 @@
 
     <div id="header">
         <h1><strong>Hello World Blog</strong></h1>
+
+        {% if request.user.is_authenticated %}
+        {% else %}
+        <a id="login" href="{% url 'blog:signup' %}">Sign up</a>
+        <a id="signup" href="{% url 'blog:login' %}">Log in</a>
+        {% endif %}
     </div>
 
     <div id="main_menu">
