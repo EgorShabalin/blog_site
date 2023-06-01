@@ -6,15 +6,33 @@
 
     {% for post in posts %}
 
-    <a href="{% url 'blog:post_detail' post.id %}">
-        <div class="content">
+    <div class="content">
+            
+        <a href="{% url 'blog:post_detail' post.id %}">        
+
             <h3>{{ post.title }}</h3>
+
+            <p>Category: {{ post.category }}
+
+            {% if post.img %}
+
             <img class="content_image" src={{ post.img.url }} alt="img">
+
+            {% endif %}
+
             <p>{{ post.text|truncatewords:100 }}</p>
-            <p>By {{ post.author }} | {{ post.created_at|date:"H:m, F j, Y" }}</p>                 
+
+            <p>By {{ post.author }} | {{ post.created_at|date:"H:m, F j, Y" }}</p>   
+
             <p>Rating: {{ post.rating }}</p>
-        </div>
-    </a>
+
+            <p>Comments: {{ comments_count }}</p>
+
+        </a>
+
+    </div>
+
+    
 
     {% empty %}
 

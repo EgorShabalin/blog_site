@@ -10,16 +10,12 @@ a {
     color: #AEAFAEff;
 }
 
-footer {
-    position: fixed;
-    margin: 20px;
-    bottom: 0;
-    right: 0;
-}
-
-footer a:hover {
-    color: white;
-    transition: .3s;
+#header_and_login {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: #000101ff;
 }
 
 #header {
@@ -31,6 +27,24 @@ footer a:hover {
     display: flex;
 }
 
+#logged_user_buttons {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #000101ff;
+    margin-right: 30px;
+}
+
+#login_signup_buttons {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #000101ff;
+    margin-right: 30px;
+}
+
 #signup {
     background-color: midnightblue;
     color: white;
@@ -39,8 +53,6 @@ footer a:hover {
     padding: 5px;
     margin: 5px;
     display: flex;
-    position: fixed;
-    right: 30px;
 }
 
 #signup:hover {
@@ -56,9 +68,6 @@ footer a:hover {
     padding: 5px;
     margin: 5px;
     display: flex;
-    position: fixed;
-    right: 30px;
-    top: 45px;
 }
 
 #login:hover {
@@ -103,6 +112,9 @@ footer a:hover {
 .article_list {
     text-align: center;
     margin: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .content {
@@ -140,4 +152,30 @@ footer a:hover {
 
 #comment_text {
     margin-left: 20px;
+}
+
+.rate_upndown {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: x-large;
+    font-weight: bold;
+
+    .rate_upndown:a {
+        font-size: x-large;
+        font-weight: bold;
+    }
+
+}
+
+footer {
+    position: fixed;
+    margin: 20px;
+    bottom: 0;
+    right: 0;
+}
+
+footer a:hover {
+    color: white;
+    transition: .3s;
 }

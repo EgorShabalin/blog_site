@@ -19,9 +19,14 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
     img = models.ImageField(default=None, upload_to="post_imgs", blank=True, null=True)
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(
+        User, on_delete=models.DO_NOTHING, blank=False, null=False
+    )
+    ava = models.ImageField(
+        default="avatars/avatar.png", upload_to="avatars", blank=True
+    )
     rating = models.IntegerField(default=0, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     posted = models.BooleanField(default=False)
@@ -37,14 +42,14 @@ class Post(models.Model):
 
 class Comment(models.Model):
     author = models.ForeignKey(
-        User, related_name="comment_author", on_delete=models.SET_NULL, null=True
+        User, related_name="comment_author", on_delete=models.DO_NOTHING, null=True
     )
     text = models.TextField()
     img = models.ImageField(
         default=None, upload_to="comment_imgs", blank=True, null=True
     )
     parent = models.ForeignKey(
-        Post, related_name="post_commented", on_delete=models.SET_NULL, null=True
+        Post, related_name="post_commented", on_delete=models.DO_NOTHING, null=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
