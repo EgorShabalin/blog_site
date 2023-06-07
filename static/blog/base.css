@@ -27,13 +27,17 @@ a {
     display: flex;
 }
 
+#site_name {
+    text-shadow: 2px 2px 2px rgb(129, 57, 28);
+}
+
 #logged_user_buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    padding: 5px;
+    margin: 5px;
     background-color: #000101ff;
-    margin-right: 30px;
 }
 
 #login_signup_buttons {
@@ -53,26 +57,54 @@ a {
     padding: 5px;
     margin: 5px;
     display: flex;
+    width: fit-content;
+    height: fit-content;
 }
 
 #signup:hover {
     background-color: blue;
-    transition: .15s;
+    transition: .05s;
+    transform: scale(1.03);
+    box-shadow: 2px 2px 2px white;
 }
 
-#login {
-    background-color: teal;
+#signup:active {
+    background-color: blue;
     color: white;
+    box-shadow: 0px 0px 0px black;
+    transform: scale(1);
+}
+
+#welcome {
+    margin: 5px;
+    padding: 5px;
+}
+
+#button {
+    background-color: teal;
+    color: lightgray;
     border-radius: 5px;
     text-align: center;
     padding: 5px;
     margin: 5px;
     display: flex;
+    width: fit-content;
+    height: fit-content;
 }
 
-#login:hover {
+#button:hover {
     background-color: green;
-    transition: .15s;
+    color: white;
+    transition: .05s;
+    transform: scale(1.03);
+    box-shadow: 2px 2px 2px white;
+}
+
+#button:active {
+    background-color: green;
+    color: white;
+    box-shadow: 0px 0px 0px black;
+    transform: scale(1);
 }
 
 .submit {
@@ -87,7 +119,9 @@ a {
 
 .submit:hover {
     background-color: green;
-    transition: .15s;
+    transition: .10s;
+    transform: scale(1.05);
+    box-shadow: 2px 2px 2px white;
 }
 
 #main_menu {
@@ -129,7 +163,7 @@ a {
 
 .content:hover {
     transform: scale(1.01);
-    transition: .15s;
+    transition: .10s;
     box-shadow: 10px 10px 10px black;
 }
 
@@ -146,7 +180,7 @@ a {
 .content_image {
     float: left;
     max-width: 20%;
-    padding: 0 20px 20px 0;
+    padding: 0 20px 20px 20px;
     image-rendering: optimizeQuality;
 }
 
@@ -178,4 +212,35 @@ footer {
 footer a:hover {
     color: white;
     transition: .3s;
+}
+
+#rate_up {
+    background-color: teal;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+}
+
+#rate_up:hover {
+    background-color: green;
+    transition: .15s;
+}
+
+#rate_down {
+    background-color: teal;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+}
+
+#rate_down:hover {
+    background-color: red;
+    transition: .15s;
+    color: black;
 }

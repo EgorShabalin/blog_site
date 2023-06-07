@@ -22,15 +22,24 @@ class Post(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, blank=False, null=False
     )
-    ava = models.ImageField(
-        default="avatars/avatar.png", upload_to="avatars", blank=True
-    )
-    rating = models.IntegerField(default=0, null=True)
+    likes = models.ManyToManyField(User, related_name="post_likes")
+    dislikes = models.ManyToManyField(User, related_name="post_dislikes")
+    comments = models.IntegerField(default=0, null=True)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     posted = models.BooleanField(default=False)
     # url = models.SlugField(max_length=200, unique=True)
+
+    def likes_count(self):
+        return self.likes.count()
+
+    def dislikes_count(self):
+        return self.dislikes.count()
+
+    def rating(self):
+        rating = int(self.likes.count() - self.dislikes.count())
+        return rating
 
     def __str__(self):
         return self.title
@@ -71,8 +80,3 @@ class Follow(models.Model):
 
     class Meta:
         ordering = ("-created_at",)
-
-
-class Rating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_rating")
