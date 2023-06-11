@@ -2,9 +2,10 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-from blog.models import Category, Post, Comment, User, Follow
+from blog.models import Category, Post, Comment, User, Profile
 from .forms import SignupForm, NewPostForm, NewCommentForm
 
 
@@ -23,29 +24,15 @@ class PeopleDetailView(generic.DetailView):
     model = User
 
 
-def index(request):
-    posts = Post.objects.filter(posted=True)[0:10]
-    post_category = Category.objects.all()
-    comments = Comment.objects.all()
-    for post in posts:
-        comments = Comment.objects.filter(parent=post, posted=True)
-        comments_count = comments.count()
+def people_detail(request, pk):
+    users = User.objects.all()
+    posts = Post.objects.all()
 
-    return render(
-        request,
-        "blog/index.html",
-        {
-            "posts": posts,
-            "post_category": post_category,
-            "comments_count": comments_count,
-        },
-    )
+    return render(request, "blog/user_detail.html", {"posts": posts, "users": users})
 
 
 def best(request):
     posts = Post.objects.all()
-    for post in posts:
-        post.rating()
     posts = Post.objects.filter(posted=True).order_by("-likes")[0:10]
 
     return render(request, "blog/post_list.html", {"post_list": posts})
@@ -56,6 +43,14 @@ def post_detail(request, pk):
     comments = Comment.objects.filter(parent=post, posted=True)
     comments_count = comments.count()
     rating = post.likes_count()
+
+    if request.method == "POST":
+        current_user_profile = request.user.profile
+        user_to_follow = post.author
+        current_user_profile.follows.add(user_to_follow.profile)
+        action = request.POST["follow"]
+        if action == "unfollow":
+            current_user_profile.follows.remove(user_to_follow.profile)
 
     return render(
         request,
@@ -69,15 +64,7 @@ def post_detail(request, pk):
     )
 
 
-"""
-def people(request):
-    authors = User.objects.all()
-    folowers = Follow.objects.all()
-    return render(
-        request, "blog/people.html", {"authors": authors, "followers": folowers}
-    )"""
-
-
+@login_required
 def rate_up(request, pk):
     post = get_object_or_404(Post, id=request.POST.get("post_id"))
     if post.likes.filter(id=request.user.id).exists():
@@ -90,6 +77,7 @@ def rate_up(request, pk):
     return HttpResponseRedirect(reverse("blog:post_detail", args=[str(pk)]))
 
 
+@login_required
 def rate_down(request, pk):
     post = get_object_or_404(Post, id=request.POST.get("post_id"))
     if post.likes.filter(id=request.user.id).exists():
@@ -151,3 +139,24 @@ def new_comment(request, pk):
         form = NewCommentForm()
 
     return render(request, "blog/new_comment_form.html", {"form": form, "post": post})
+
+
+@login_required
+def profile(request, pk):
+    profile = Profile.objects.get(current_user_id=pk)
+    post_count = Post.objects.filter(author=profile.current_user).count()
+    comment_count = Comment.objects.filter(author=profile.current_user).count()
+
+    if request.method == "POST":
+        current_user_profile = request.user.profile
+        user_to_follow = profile.current_user
+        current_user_profile.follows.add(user_to_follow.profile)
+        action = request.POST["follow"]
+        if action == "unfollow":
+            current_user_profile.follows.remove(user_to_follow.profile)
+
+    return render(
+        request,
+        "blog/profile.html",
+        {"profile": profile, "post_count": post_count, "comment_count": comment_count},
+    )

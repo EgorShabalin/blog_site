@@ -6,7 +6,6 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # url = models.SlugField(max_length=200, unique=True)
 
     def __str__(self) -> str:
         return self.name
@@ -42,7 +41,7 @@ class Post(models.Model):
         return rating
 
     def __str__(self):
-        return self.title
+        return self.title + " | " + str(self.author) + " | " + str(self.created_at)
 
     class Meta:
         ordering = ("-created_at",)
@@ -63,20 +62,30 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     posted = models.BooleanField(default=False)
-    # url = models.SlugField(max_length=200, unique=True)
 
     def __str__(self) -> str:
-        return self.text[0:20]
+        return (
+            self.text[0:20]
+            + " | by "
+            + str(self.author)
+            + " | to post "
+            + str(self.parent.title)
+            + " | by "
+            + str(self.parent.author)
+        )
 
     class Meta:
         ordering = ("-created_at",)
         verbose_name_plural = "Comments"
 
 
-class Follow(models.Model):
-    follows_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class Profile(models.Model):
+    current_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    ava = models.ImageField(default=None, upload_to="avatars", blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
+    follows = models.ManyToManyField(
+        "self", related_name="followed_by", symmetrical=False, blank=True
+    )
 
-    class Meta:
-        ordering = ("-created_at",)
+    def __str__(self) -> str:
+        return self.current_user.username

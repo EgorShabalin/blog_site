@@ -26,13 +26,13 @@
 
         {% if request.user.is_authenticated %}
 
-            <div id='logged_user_buttons'>
-
-                <p id='welcome'>Welcome, {{ user.username }}!</p>
+            <div id='logged_user_buttons'>                
                 
                 <a id="button" href="{% url 'blog:new_post' %}">New post</a>
 
                 <a id="button" href="#">Dashboard</a>
+
+                <a id="button" href="{% url 'blog:profile' request.user.id %}">My profile</a>
 
             </div>
 
@@ -44,6 +44,8 @@
 
             {% if request.user.is_authenticated %}            
 
+                <p id='welcome'>Welcome, {{ user.username }}!</p>    
+            
                 <a id="button" href="{% url 'logout' %}">Log out</a>
 
             {% else %}

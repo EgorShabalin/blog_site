@@ -25,4 +25,6 @@ urlpatterns = [
     path("post/<int:pk>/new_comment/", new_comment, name="new_comment"),
     path("rateup/<int:pk>", rate_up, name="rate_up"),
     path("ratedown/<int:pk>", rate_down, name="rate_down"),
+    # path("user/<int:pk>/", people_detail, name="people_detail"),
+    path("profile/<int:pk>", profile, name="profile"),
 ]
