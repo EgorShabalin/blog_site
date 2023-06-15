@@ -1,0 +1,71 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    
+    <div class='content_detail'>
+
+        <h2>Write a comment for the post: {{ post.title }}</h2>
+
+        <h4>By {{ post.author }} | {{ post.created_at }}</h4>
+
+        {% if post.img %}
+
+            <img class="content_image" src={{ post.img.url }} alt="img">
+
+        {% endif %}
+
+        <p>{{ post.text }}</p>
+
+        <br>
+
+            <form method='post', action='.' enctype='multipart/form-data'>
+                {% csrf_token %}
+
+                <div>
+
+                    <p>
+
+                        <label for="id_text">Text:</label>
+                
+                        {{ form.text }}
+
+                    </p>
+
+                    <p>
+
+                        <label for="id_img">Image:</label>
+                
+                        {{ form.img }}
+
+                    </p>
+                    
+                    <p>
+
+                        <label for="id_posted">Publish:</label>
+                
+                        {{ form.posted }}
+
+                    </p>
+
+                </div>
+
+                {% if form.errors or form.non_field_errors %}
+
+                <div>
+
+                    {% for field in form %}
+
+                    {{ field.errors }}
+                    
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+                <button class="submit">Submit</button>
+            
+            </form>
+    </div>
+
+{% endblock %}

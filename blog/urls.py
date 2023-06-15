@@ -11,7 +11,7 @@ urlpatterns = [
     path("", PostListView.as_view(), name="posts"),
     path("best/", best, name="best"),
     path("people/", PeopleListView.as_view(), name="user_list"),
-    path("author/<int:pk>/", PeopleDetailView.as_view(), name="user_detail"),
+    # path("author/<int:pk>/", PeopleDetailView.as_view(), name="user_detail"),
     path("post/<int:pk>/", post_detail, name="post_detail"),
     path("signup/", signup, name="signup"),
     path(
@@ -27,4 +27,5 @@ urlpatterns = [
     path("ratedown/<int:pk>", rate_down, name="rate_down"),
     # path("user/<int:pk>/", people_detail, name="people_detail"),
     path("profile/<int:pk>", profile, name="profile"),
+    path("following/", authors_you_follow, name="authors_you_follow"),
 ]

@@ -1,0 +1,60 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% if post_list %}
+
+    <div class='article_list'>
+
+    {% for post in post_list %}        
+
+        <div class="content"> 
+
+            <a href="{% url 'blog:post_detail' post.id %}">                   
+
+                <h3>{{ post.title }}</h3>
+
+                {% if user.profile.ava %}
+
+                    <p><img id='ava_small' src="{{ user.profile.ava.url }}" alt="ava"> {{ post.author }}</p>
+                
+                {% else %}
+
+                    <p><img id='ava_small' src="{% static 'blog/avatar.png' %}" alt="ava"> {{ post.author }}</p>
+
+                {% endif %}
+                
+
+                {% if post.img %}
+
+                    <img class="content_image" src={{ post.img.url }} alt="img">
+
+                {% endif %}
+
+                <p>{{ post.text|truncatewords:40 }}</p>
+
+                <p><small>{{ post.created_at|date:"H:m, F j, Y" }} | Rating: {{ post.rating }}</small></p>
+
+                <p><small>Category: {{ post.category }}</small></p>
+            
+            </a>
+
+        </div>
+    
+    </div>
+
+{% endfor %}
+
+{% else %}
+
+    <div class="content_detail">
+
+        <h4>No posts available yet.</h4>
+
+    </div>
+
+{% endif %}
+
+{% endblock %}

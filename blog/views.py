@@ -32,10 +32,25 @@ def people_detail(request, pk):
 
 
 def best(request):
-    posts = Post.objects.all()
     posts = Post.objects.filter(posted=True).order_by("-likes")[0:10]
 
     return render(request, "blog/post_list.html", {"post_list": posts})
+
+
+def authors_you_follow(request):
+    posts = Post.objects.all()
+    my_follows = request.user.profile.follows.all()
+
+    posts_follow = []
+    for post in posts:
+        if post.author.profile in my_follows:
+            posts_follow.append(post)
+
+    return render(
+        request,
+        "blog/authors_you_follow.html",
+        {"posts_follow": posts_follow, "my_follows": my_follows},
+    )
 
 
 def post_detail(request, pk):

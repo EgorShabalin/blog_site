@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+
+    <div class="content_detail">        
+
+        {% if profile.ava %}
+
+            <p>{{ profile.ava.url }}</p>
+
+        {% else %}
+            
+            <img id='ava_small' src="{% static 'blog/avatar.png' %}" alt="ava">
+        
+        {% endif %}
+
+        <p>{{ profile }}</p>
+
+        <p>{{ profile.bio }}</p>
+
+        <p>Follows: </p>
+        {% for p in  profile.follows.all %}
+
+            <p>{{ p }}</p>
+        
+        {% endfor %}
+        
+
+        <p>Followed by: </p>
+        {% for p in  profile.followed_by.all %}
+
+            <p>{{ p }}</p>
+        
+        {% endfor %}
+
+        <p>Posts: {{ post_count }}</p>
+
+        <p>Comments: {{ comment_count }}</p>
+        
+    </div>
+
+{% endif %}
+
+{% endblock %}

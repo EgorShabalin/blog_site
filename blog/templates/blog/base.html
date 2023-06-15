@@ -62,6 +62,12 @@
 
     <div id="main_menu">
 
+        {% if request.user.is_authenticated %}
+
+        <a href="{% url 'blog:authors_you_follow' %}">Following</a>
+
+        {% endif %}
+
         <a href="{% url 'blog:posts' %}">Latest</a>
 
         <a href="{% url 'blog:best' %}">Best</a>

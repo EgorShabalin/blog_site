@@ -1,0 +1,78 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class='content_detail'>
+
+    <h1>Sign up</h1>
+
+    <form method='post' action='.'>
+
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <p>
+
+            <label for="id_username">Username:</label>
+
+            {{ form.username }}
+
+        </p>
+  
+        <p>
+
+            <label for="id_email">Email:</label>
+
+            {{ form.email }}
+
+        </p>
+
+  
+        <p>
+            <label for="id_password1">Password:</label>
+
+            {{ form.password1 }}
+
+            <span class="helptext">
+
+                <ul>
+
+                    <li>Your password can’t be too similar to your other personal information.</li>
+                    <li>Your password must contain at least 8 characters.</li>
+                    <li>Your password can’t be a commonly used password.</li>
+                    <li>Your password can’t be entirely numeric.</li>
+
+                </ul>
+
+            </span> 
+    
+        </p>
+
+        <p>
+            <label for="id_password2">Repeat Password:</label>
+
+            {{ form.password2 }}
+    
+            {% if form.errors or form.non_field_errors %}
+
+            <div>
+
+                {% for field in form %}
+
+                {{ field.errors }}
+                
+                {% endfor %}
+
+            </div>
+
+            {% endif %}      
+    
+        </p>
+
+        <button id='button' class="submit">Submit</button>
+    
+    </form>
+
+</div>
+
+{% endblock %}

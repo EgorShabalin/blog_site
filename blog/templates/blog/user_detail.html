@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}       
+
+{% for user in users %}
+
+    <div class="content_detail">            
+
+        {% if user.profile.ava %}
+
+            <img id='ava' src="{{ user.profile.ava.url }}" alt="ava">
+                
+        {% else %}
+
+            <img id='ava' src="{% static 'blog/avatar.png' %}" alt="ava">
+
+        {% endif %}
+
+        <strong>{{ user.username }}</strong>
+
+        <strong>| Registred: {{ user.date_joined }}</strong>
+
+        <strong>| Last log in: {{ user.date_joined }}</strong>
+
+        <p>Followers: {% filter posts | post.author == user | length %}</p>
+
+                
+
+    </div>
+
+{% else %}
+
+    <div class="content_detail">
+
+        <h4>You need to log in first.</h4>
+
+    </div>
+
+{% endif %}
+
+{% endblock %}

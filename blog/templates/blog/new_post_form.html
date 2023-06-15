@@ -1,0 +1,75 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    
+    <div class='content_detail'>
+
+        <h1>Create new post</h1>
+
+            <form method='post', action='.' enctype='multipart/form-data'>
+                {% csrf_token %}
+
+                <div>
+
+                    <p>
+
+                        <label for="id_title">Title:</label>
+                
+                        {{ form.title }}
+
+                    </p>
+
+                    <p>
+
+                        <label for="id_text">Text:</label>
+                
+                        {{ form.text }}
+
+                    </p>
+
+                    <p>
+
+                        <label for="id_img">Image:</label>
+                
+                        {{ form.img }}
+
+                    </p>
+
+                    <p>
+
+                        <label for="id_category">Category:</label>
+                
+                        {{ form.category }}
+
+                    </p>
+
+                    <p>
+
+                        <label for="id_posted">Publish:</label>
+                
+                        {{ form.posted }}
+
+                    </p>
+
+                </div>
+
+                {% if form.errors or form.non_field_errors %}
+
+                <div>
+
+                    {% for field in form %}
+
+                    {{ field.errors }}
+                    
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+                <button class="submit">Submit</button>
+            
+            </form>
+    </div>
+
+{% endblock %}
