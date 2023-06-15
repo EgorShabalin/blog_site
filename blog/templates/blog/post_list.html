@@ -16,9 +16,9 @@
 
                 <h3>{{ post.title }}</h3>
 
-                {% if user.profile.ava %}
+                {% if post.author.profile.ava %}
 
-                    <p><img id='ava_small' src="{{ user.profile.ava.url }}" alt="ava"> {{ post.author }}</p>
+                    <p><img id='ava_small' src="{{ post.author.profile.ava.url }}" alt="ava"> {{ post.author }}</p>
                 
                 {% else %}
 

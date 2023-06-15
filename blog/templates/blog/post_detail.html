@@ -12,15 +12,19 @@
 
     <p><small>{{ post.created_at|date:"H:m, F j, Y" }}</small></p>    
     
-    {% if user.profile.ava %}
+    <a href="{% url 'blog:profile' post.author.profile.current_user.id %}">
+    
+    {% if post.author.profile.ava %}
 
-        <p><img id='ava_small' src="{{ user.profile.ava.url }}" alt="ava"> {{ post.author }}</p>
+        <p><img id='ava_small' src="{{ post.author.profile.ava.url }}" alt="ava"> {{ post.author }}</p>
     
     {% else %}
 
         <p><img id='ava_small' src="{% static 'blog/avatar.png' %}" alt="ava"> {{ post.author }}</p>
 
     {% endif %}
+
+    </a>
 
     {% if post.author != request.user %}
     
@@ -57,6 +61,7 @@
         {% if post.author != request.user %}
 
             <form method=POST>
+
             {% csrf_token %}        
 
                 {% if post.author.profile in request.user.profile.follows.all %}
@@ -68,6 +73,16 @@
                     <button id="button" type='submit' name='follow' value="follow" type="submit">Follow {{ post.author.username }}</button>
 
                 {% endif %}        
+
+            </form>
+        
+        {% else %}
+            
+            <form method=POST>
+
+            {% csrf_token %}        
+
+                <a id='button' href='#'>Edit</a>
 
             </form>
 

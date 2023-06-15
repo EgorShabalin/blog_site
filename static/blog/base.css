@@ -40,12 +40,7 @@ a {
     background-color: #000101ff;
 }
 
-.buttons_row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
+
 
 #login_signup_buttons {
     display: flex;
@@ -62,7 +57,7 @@ a {
     border-radius: 5px;
     text-align: center;
     padding: 5px;
-    margin: 5px;
+    margin: 5px 5px 5px 0;
     display: flex;
     width: fit-content;
     height: fit-content;
@@ -83,8 +78,8 @@ a {
 }
 
 #welcome {
-    margin: 5px;
-    padding: 5px;
+    margin: 5px 5px 5px 0;
+    padding: 0;
 }
 
 #button {
@@ -93,7 +88,7 @@ a {
     border-radius: 5px;
     text-align: center;
     padding: 5px;
-    margin: 5px;
+    margin: 5px 5px 5px 0;
     display: flex;
     border-style: none;
     width: fit-content;
@@ -113,13 +108,21 @@ a {
     box-shadow: 0px 0px 0px black;
 }
 
+.buttons_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    vertical-align: middle;
+}
+
 .submit {
     background-color: teal;
     color: white;
     border-radius: 5px;
     text-align: center;
     padding: 5px;
-    margin: 5px;
+    margin: 5px 5px 5px 0;
     display: flex;
     border-style: none;
 }
@@ -162,17 +165,15 @@ a {
     border-radius: 5px;
     background-color: #272A2Eff;
     text-align: justify;
-    max-width: 60%;
+    width: 60%;
     padding: 20px;
     margin: 20px auto 0 auto;
     height: fit-content;
-    width: fit-content;
-
 }
 
 .content:hover {
     transform: scale(1.01);
-    transition: .10s;
+    transition: .05s;
     box-shadow: 10px 10px 10px black;
 }
 
@@ -225,7 +226,7 @@ footer a:hover {
     border-radius: 5px;
     text-align: center;
     padding: 5px;
-    margin: 5px;
+    margin: 5px 5px 5px 0;
     display: flex;
     border-style: none;
 }
@@ -247,7 +248,7 @@ footer a:hover {
     border-radius: 5px;
     text-align: center;
     padding: 5px;
-    margin: 5px;
+    margin: 5px 5px 5px 0;
     display: flex;
     border-style: none;
 }
@@ -264,17 +265,34 @@ footer a:hover {
 }
 
 #ava {
-    max-width: 10%;
-    padding: 0 20px 0 0;
+    width: 500px;
+    padding: 0;
     margin: 0;
-    image-rendering: optimizeQuality;
+    border-radius: 5px;
+
+    display: flex;
 }
 
 #ava_small {
     vertical-align: middle;
     border-radius: 50%;
-    max-width: 3%;
+    width: 50px;
+    height: 50px;
     padding: 0;
     margin: 0;
-    image-rendering: optimizeQuality;
+
+}
+
+#info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    vertical-align: middle;
+    justify-content: space-evenly;
+}
+
+#info div {
+    margin: 0;
+    padding: 0;
+    width: fit-content;
 }

@@ -6,40 +6,51 @@
 
 {% if request.user.is_authenticated %}
 
-    <div class="content_detail">        
+    <div class="content_detail">
 
-        {% if profile.ava %}
+        <div id='info'>
 
-            <p>{{ profile.ava.url }}</p>
+            <div>
 
-        {% else %}
+                {% if profile.ava %}
+
+                    <img id='ava' src={{ profile.ava.url }} alt="ava">
+
+                {% else %}
+                    
+                    <img id='ava' src="{% static 'blog/avatar.png' %}" alt="ava">
+                
+                {% endif %}
+
+                <br>
+
+            </div>
+
+            <div>
+                
+                <p>Name: {{ profile.current_user.username }}</p>
+
+                <p>Bio: {{ profile.bio }}</p>
+
+                <p>Registred: {{ profile.current_user.date_joined }}</p>
+
+                <p>Last log in: {{ profile.current_user.last_login }}</p>
+
+            </div>
+
+            <div>
+
+                <a id='button' href={% url 'blog:profile_follows' profile.id %}>Follows: {{ profile.follows.count }}</a>
+                
+                <a id='button' href={% url 'blog:profile_followed_by' profile.id %}>Followed by: {{ profile.followed_by.count }}</a>
+
+                <a id='button' href={% url 'blog:profile_posts' profile.id %}>Posts: {{ post_count }}</a>
+
+                <p>Comments: {{ comment_count }}</p>
             
-            <img id='ava_small' src="{% static 'blog/avatar.png' %}" alt="ava">
+            </div>
         
-        {% endif %}
-
-        <p>{{ profile }}</p>
-
-        <p>{{ profile.bio }}</p>
-
-        <p>Follows: </p>
-        {% for p in  profile.follows.all %}
-
-            <p>{{ p }}</p>
-        
-        {% endfor %}
-        
-
-        <p>Followed by: </p>
-        {% for p in  profile.followed_by.all %}
-
-            <p>{{ p }}</p>
-        
-        {% endfor %}
-
-        <p>Posts: {{ post_count }}</p>
-
-        <p>Comments: {{ comment_count }}</p>
+        </div>
         
     </div>
 

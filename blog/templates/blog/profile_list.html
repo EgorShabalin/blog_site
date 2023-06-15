@@ -1,0 +1,55 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% if profile_list %}
+
+    {% if request.user.is_authenticated %}        
+        
+        {% for profile in profile_list %}
+
+        <a href="{% url 'blog:profile' profile.current_user.id %}">
+            
+            <div class="content">
+
+                {% if profile.ava %}
+
+                    <img id='ava_small' src="{{ profile.ava.url }}" alt="ava">
+                
+                {% else %}
+
+                    <img id='ava_small' src="{% static 'blog/avatar.png' %}" alt="ava">
+
+                {% endif %}
+
+                <strong>{{ profile.current_user.username }}</strong>
+            
+            </div>
+            
+        </a>
+        
+        {% endfor %}        
+
+    {% else %}
+
+    <div class="content_detail">
+
+        <h4>You need to log in first.</h4>
+
+    </div>
+
+    {% endif %}
+
+{% else %}
+
+    <div class="content_detail">
+
+        <h4>No users registred yet.</h4>
+
+    </div>
+
+{% endif %}
+
+{% endblock %}

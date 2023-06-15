@@ -16,7 +16,7 @@ class PostListView(generic.ListView):
 
 
 class PeopleListView(generic.ListView):
-    model = User
+    model = Profile
     paginate_by = 10
 
 
@@ -51,6 +51,27 @@ def authors_you_follow(request):
         "blog/authors_you_follow.html",
         {"posts_follow": posts_follow, "my_follows": my_follows},
     )
+
+
+def profile_posts(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
+    post_list = Post.objects.filter(author=profile.current_user)
+
+    return render(request, "blog/post_list.html", {"post_list": post_list})
+
+
+def profile_follows(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
+    profile_list = Profile.objects.filter(followed_by=profile)
+
+    return render(request, "blog/profile_list.html", {"profile_list": profile_list})
+
+
+def profile_followed_by(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
+    profile_list = Profile.objects.filter(follows=profile)
+
+    return render(request, "blog/profile_list.html", {"profile_list": profile_list})
 
 
 def post_detail(request, pk):
