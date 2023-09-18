@@ -30,6 +30,14 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1',
+    'http://0.0.0.0',
+    'https://*.onrender.com'
+]
+
+CSRF_TRUSTED_ORIGINS = ["http://0.0.0.0", "http://127.0.0.1", "https://*.onrender.com"]
+
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1"]
 
 LOGIN_URL = "/login/"
@@ -82,13 +90,26 @@ WSGI_APPLICATION = "blogsite.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+# '''
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+# '''
+'''
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ["DB_NAME"],
+        "USER": os.environ["DB_USER"],
+        "PASSWORD": os.environ["DB_PSW"],
+        "HOST": os.environ["DB_HOST"],
+        "PORT": os.environ["DB_PORT"],
+    }
+}
+'''
 
 
 # Password validation
