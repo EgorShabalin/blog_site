@@ -38,7 +38,7 @@ CORS_ORIGIN_WHITELIST = [
 
 CSRF_TRUSTED_ORIGINS = ["http://0.0.0.0", "http://127.0.0.1", "https://*.onrender.com"]
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "*.onrender.com"]
 
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
